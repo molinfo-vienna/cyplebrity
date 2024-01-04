@@ -1,3 +1,4 @@
+import gzip
 import sys
 from typing import List, Tuple
 
@@ -5,11 +6,6 @@ import numpy as np
 import pandas as pd
 from FPSim2 import FPSim2Engine
 from joblib import load
-from rdkit import RDLogger
-
-lg = RDLogger.logger()
-lg.setLevel(RDLogger.CRITICAL)
-
 from molvs import Standardizer, tautomer
 from nerdd_module import AbstractModel
 from rdkit import Chem
@@ -33,10 +29,12 @@ def load_ml_nn_models(labels):
     for i in range(len(labels)):
         ml_data.append(
             load(
-                files("cyplebrity")
-                .joinpath("resources")
-                .joinpath("mm_models")
-                .joinpath("p450inh_final_" + labels[i] + "_model.pkl")
+                gzip.open(
+                    files("cyplebrity")
+                    .joinpath("resources")
+                    .joinpath("mm_models")
+                    .joinpath("p450inh_final_" + labels[i] + "_model.pkl.gz")
+                )
             )
         )
         selectors.append(
