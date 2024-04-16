@@ -1,4 +1,4 @@
-from pytest_bdd import given, parsers, scenario
+from pytest_bdd import scenario
 
 
 @scenario(
@@ -7,11 +7,3 @@ from pytest_bdd import given, parsers, scenario
 )
 def test_consistent_predictions():
     pass
-
-
-@given(
-    parsers.parse("an input molecule specified by '{input}'"),
-    target_fixture="representations",
-)
-def representations(input):
-    return [input]

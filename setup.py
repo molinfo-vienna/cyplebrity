@@ -23,6 +23,9 @@ setup(
     packages=find_packages(),
     url="https://github.com/molinfo-vienna/cyplebrity",
     long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    license="BSD 3-Clause License",
+    include_package_data=True,
     install_requires=rdkit_requirement
     + [
         "scikit_learn==0.21.2",
@@ -30,7 +33,7 @@ setup(
         "numpy==1.19.2",
         "scipy==1.5.2",
         "molvs==0.1.1",
-        "nerdd-module>=0.1.10",
+        "nerdd-module>=0.2.0",
         "fpsim2==0.4.0",
         # avoid warnings about numpy.distutils
         "setuptools < 60.0",

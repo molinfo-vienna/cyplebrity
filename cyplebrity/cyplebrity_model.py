@@ -1,4 +1,3 @@
-import gzip
 import sys
 from typing import List, Tuple
 
@@ -10,6 +9,7 @@ from molvs import Standardizer, tautomer
 from nerdd_module import AbstractModel
 from rdkit import Chem
 from rdkit.Chem import AllChem, Mol, MolToSmiles
+from rdkit.rdBase import BlockLogs
 
 if sys.version_info < (3, 9):
     from importlib_resources import files
@@ -29,12 +29,10 @@ def load_ml_nn_models(labels):
     for i in range(len(labels)):
         ml_data.append(
             load(
-                gzip.open(
-                    files("cyplebrity")
-                    .joinpath("resources")
-                    .joinpath("mm_models")
-                    .joinpath("p450inh_final_" + labels[i] + "_model.pkl.gz")
-                )
+                files("cyplebrity")
+                .joinpath("resources")
+                .joinpath("mm_models")
+                .joinpath("p450inh_final_" + labels[i] + "_model.pkl.gz")
             )
         )
         selectors.append(
@@ -318,9 +316,10 @@ class CyplebrityModel(AbstractModel):
         super().__init__(preprocessing_pipeline="custom")
 
     def _preprocess_single_mol(self, mol: Mol) -> Tuple[Mol, List[str]]:
-        preprocessed_mol, flags = cleanAndCheckMolecule(mol)
-        warnings = produce_warnings(flags)
-        return preprocessed_mol, [warnings]
+        with BlockLogs():
+            preprocessed_mol, flags = cleanAndCheckMolecule(mol)
+            warnings = produce_warnings(flags)
+            return preprocessed_mol, [warnings]
 
     def _predict_mols(
         self, mols: List[Mol], applicability_domain: bool = True
