@@ -56,4 +56,9 @@ setup(
             "hypothesis-rdkit",
         ],
     },
+    entry_points={
+        "console_scripts": [
+            "cyplebrity=cyplebrity.__main__:main",
+        ],
+    },
 )
