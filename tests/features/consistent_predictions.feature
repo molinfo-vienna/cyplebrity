@@ -1,4 +1,3 @@
-@cyplebrity
 Feature: Consistent predictions
 
   Scenario Outline: Predictions stay consistent with previous versions

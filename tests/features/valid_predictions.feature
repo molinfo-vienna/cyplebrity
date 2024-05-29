@@ -1,4 +1,3 @@
-@cyplebrity
 Feature: Valid predictions
 
   Scenario Outline: Predictions are valid
