@@ -5,4 +5,3 @@ channels:
 dependencies:
 - python=3.8
 - rdkit=2020.09.1
-- openblas=0.3.27  # necessary for scikit-learn / scipy
