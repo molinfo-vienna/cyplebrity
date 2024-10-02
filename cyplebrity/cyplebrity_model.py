@@ -1,14 +1,14 @@
 import sys
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
 from FPSim2 import FPSim2Engine
 from joblib import load
 from molvs import Standardizer, tautomer
-from nerdd_module import AbstractModel
+from nerdd_module import Problem, SimpleModel
 from rdkit import Chem
-from rdkit.Chem import AllChem, Mol, MolToSmiles
+from rdkit.Chem import AllChem, Descriptors, Mol, MolToSmiles
 from rdkit.rdBase import BlockLogs
 
 if sys.version_info < (3, 9):
@@ -176,10 +176,10 @@ def cleanAndCheckMolecule(mol):
         m_inorganic += 1
         return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
 
-    if Chem.Descriptors.MolWt(Chem.AddHs(molOK)) > 1000:
+    if Descriptors.MolWt(Chem.AddHs(molOK)) > 1000:
         m_tooheavy += 1
         return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
-    if Chem.Descriptors.NumRadicalElectrons(molOK) > 0:
+    if Descriptors.NumRadicalElectrons(molOK) > 0:
         m_exotic += 1
         return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
     try:
@@ -230,22 +230,6 @@ def cleanAndCheckMolecule(mol):
         return molOK, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
     else:
         return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
-
-
-# TODO: delete this function since it is not used?
-def produce_confidence_warnings(similarity):
-    """
-    Method that adds confidence warnings to the warnings
-
-    :param args: w (hitdexter warnings; list), similarity (similarity to training set)
-    :return: w with appended confidence warnings
-    """
-    warningsConfidence = ["NNPH", "NNPM", "NNCH", "NNCM"]
-    for i, s in enumerate(similarity):
-        conf = get_confidence_for_similarity(s)
-        if conf != 1:
-            w.append(warningsConfidence[i])
-    return w
 
 
 def produce_warnings(w):
@@ -302,26 +286,34 @@ def predict(
     else:
         distances = nnm_predictions
 
-    results = pd.DataFrame()
+    results = []
 
-    for i in range(len(labels)):
-        results[f"prediction_{i+1}"] = mlm_predictions[i]
-        results[f"neighbor_{i+1}"] = distances[i]
+    for j in range(len(mols)):
+        results.append(
+            {
+                **{
+                    f"prediction_{i+1}": mlm_predictions[i][j]
+                    for i in range(len(labels))
+                },
+                **{f"neighbor_{i+1}": distances[i][j] for i in range(len(labels))},
+            }
+        )
 
     return results
 
 
-class CyplebrityModel(AbstractModel):
+class CyplebrityModel(SimpleModel):
     def __init__(self):
-        super().__init__(preprocessing_pipeline="custom")
+        super().__init__(preprocessing_steps=[])
 
-    def _preprocess_single_mol(self, mol: Mol) -> Tuple[Mol, List[str]]:
+    def _preprocess(self, mol: Mol) -> Tuple[Optional[Mol], List[Problem]]:
         with BlockLogs():
             preprocessed_mol, flags = cleanAndCheckMolecule(mol)
             warnings = produce_warnings(flags)
-            return preprocessed_mol, [warnings]
+
+        return preprocessed_mol, [warnings]
 
     def _predict_mols(
         self, mols: List[Mol], applicability_domain: bool = True
-    ) -> pd.DataFrame:
+    ) -> List[dict]:
         return predict(mols, applicability_domain)
