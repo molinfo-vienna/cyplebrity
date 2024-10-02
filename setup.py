@@ -17,7 +17,7 @@ rdkit_requirement = ["rdkit>=2022.3.3"] if not rdkit_installed else []
 
 setup(
     name="cyplebrity",
-    version="0.1.2",
+    version="0.2.0",
     maintainer="Johannes Kirchmair",
     maintainer_email="johannes.kirchmair@univie.ac.at",
     packages=find_packages(),
@@ -32,7 +32,7 @@ setup(
         "pandas==1.2.1",
         "numpy==1.19.2",
         "molvs==0.1.1",
-        "nerdd-module>=0.2.6",
+        "nerdd-module>=0.3.3",
         "fpsim2==0.4.0",
         # avoid warnings about numpy.distutils
         "setuptools < 60.0",
