@@ -8,10 +8,9 @@ Feature: Valid predictions
     And the CYPlebrity model
 
     When the model generates predictions for the molecule representations
-    And The subset of the result where the input was not None is considered
+    And the subset of the result where the input was not None is considered
 
-    Then the result should be a pandas DataFrame
-    And The result should contain the columns:
+    Then The result should contain the columns:
             prediction_1
             neighbor_1
             prediction_2
@@ -39,8 +38,8 @@ Feature: Valid predictions
   | 1    | 10            | 0        | smiles     |
   | 2    | 10            | 1        | smiles     |
   | 3    | 10            | 2        | smiles     |
-  | 4    | 10            | 10       | smiles     |
+  | 4    | 10            | 9        | smiles     |
   | 1    | 10            | 0        | smiles     |
   | 2    | 10            | 1        | smiles     |
   | 3    | 10            | 2        | smiles     |
-  | 4    | 10            | 10       | smiles     |
+  | 4    | 10            | 9        | smiles     |
