@@ -2,7 +2,6 @@ import sys
 from typing import List, Optional, Tuple
 
 import numpy as np
-import pandas as pd
 from FPSim2 import FPSim2Engine
 from joblib import load
 from molvs import Standardizer, tautomer
