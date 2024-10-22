@@ -5,7 +5,12 @@ import numpy as np
 from FPSim2 import FPSim2Engine
 from joblib import load
 from molvs import Standardizer, tautomer
-from nerdd_module import InvalidElementsProblem, InvalidWeightProblem, Problem, SimpleModel
+from nerdd_module import (
+    InvalidElementsProblem,
+    InvalidWeightProblem,
+    Problem,
+    SimpleModel,
+)
 from rdkit import Chem
 from rdkit.Chem import AllChem, Descriptors, Mol, MolToSmiles
 from rdkit.rdBase import BlockLogs
@@ -97,7 +102,9 @@ def get_machine_learning_prediction(model, selector, morgans):
     if len(morgans) == 0:
         return []
 
-    return [np.round(i, 2) for i in model.predict_proba(selector.transform(morgans))[:, 1]]
+    return [
+        np.round(i, 2) for i in model.predict_proba(selector.transform(morgans))[:, 1]
+    ]
 
 
 def get_morgan2_fp(mol):
@@ -110,7 +117,9 @@ def get_morgan2_fp(mol):
     return AllChem.GetMorganFingerprintAsBitVect(mol, 3, 4096)
 
 
-def _append_corrupt_molecule_problem(problems: List[Problem], m_corrupt) -> List[Problem]:
+def _append_corrupt_molecule_problem(
+    problems: List[Problem], m_corrupt
+) -> List[Problem]:
     if m_corrupt > 0:
         problems.append(Problem("invalid_molecule", "Molecule could not be processed."))
     return problems
@@ -163,14 +172,19 @@ def cleanAndCheckMolecule(mol) -> Tuple[Optional[Mol], List[Problem]]:
         isot = atom.GetIsotope()
         if not (isot == 0):
             problems.append(
-                Problem("invalid_molecule", f"Invalid isotope {isot} for atom {atom.GetSymbol()}")
+                Problem(
+                    "invalid_molecule",
+                    f"Invalid isotope {isot} for atom {atom.GetSymbol()}",
+                )
             )
             return None, _append_corrupt_molecule_problem(problems, m_corrupt)
         if atom.GetSymbol() not in legal_atoms:
             problems.append(InvalidElementsProblem([atom.GetSymbol()]))
             return None, _append_corrupt_molecule_problem(problems, m_corrupt)
     if sum(1 for atom in molOK.GetAtoms() if atom.GetAtomicNum() == 6) == 0:
-        problems.append(Problem("invalid_molecule", "Molecule does not contain any carbon atoms."))
+        problems.append(
+            Problem("invalid_molecule", "Molecule does not contain any carbon atoms.")
+        )
         return None, _append_corrupt_molecule_problem(problems, m_corrupt)
 
     mol_wt = Descriptors.MolWt(Chem.AddHs(molOK))
@@ -178,7 +192,9 @@ def cleanAndCheckMolecule(mol) -> Tuple[Optional[Mol], List[Problem]]:
         problems.append(InvalidWeightProblem(mol_wt, 0, 1000))
         return None, _append_corrupt_molecule_problem(problems, m_corrupt)
     if Descriptors.NumRadicalElectrons(molOK) > 0:
-        problems.append(Problem("invalid_molecule", "Molecule contains radical electrons."))
+        problems.append(
+            Problem("invalid_molecule", "Molecule contains radical electrons.")
+        )
         return None, _append_corrupt_molecule_problem(problems, m_corrupt)
     try:
         molOK = Chem.RemoveHs(molOK)
@@ -241,11 +257,14 @@ def predict(
 
     # machine learning models
     mlm_predictions = [
-        get_machine_learning_prediction(mlm[i], selectors[i], morgans) for i in range(len(labels))
+        get_machine_learning_prediction(mlm[i], selectors[i], morgans)
+        for i in range(len(labels))
     ]
 
     # calculate similarities to datasets
-    nnm_predictions = [get_nearest_neighbors_scores(nnmodel, mols, enable_ad) for nnmodel in nnm]
+    nnm_predictions = [
+        get_nearest_neighbors_scores(nnmodel, mols, enable_ad) for nnmodel in nnm
+    ]
 
     distances = []
 
@@ -272,5 +291,7 @@ class CyplebrityModel(SimpleModel):
 
         return preprocessed_mol, problems
 
-    def _predict_mols(self, mols: List[Mol], applicability_domain: bool = True) -> Iterator[dict]:
+    def _predict_mols(
+        self, mols: List[Mol], applicability_domain: bool = True
+    ) -> Iterator[dict]:
         return predict(mols, applicability_domain)
