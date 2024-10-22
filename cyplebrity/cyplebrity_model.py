@@ -1,11 +1,16 @@
 import sys
-from typing import List, Optional, Tuple
+from typing import Iterator, List, Optional, Tuple
 
 import numpy as np
 from FPSim2 import FPSim2Engine
 from joblib import load
 from molvs import Standardizer, tautomer
-from nerdd_module import Problem, SimpleModel
+from nerdd_module import (
+    InvalidElementsProblem,
+    InvalidWeightProblem,
+    Problem,
+    SimpleModel,
+)
 from rdkit import Chem
 from rdkit.Chem import AllChem, Descriptors, Mol, MolToSmiles
 from rdkit.rdBase import BlockLogs
@@ -16,6 +21,7 @@ else:
     from importlib.resources import files
 
 __all__ = ["CyplebrityModel"]
+
 
 labels = ["1A2", "2C9", "2C19", "2D6", "3A4"]
 
@@ -111,34 +117,33 @@ def get_morgan2_fp(mol):
     return AllChem.GetMorganFingerprintAsBitVect(mol, 3, 4096)
 
 
-def cleanAndCheckMolecule(mol):
+def _append_corrupt_molecule_problem(
+    problems: List[Problem], m_corrupt
+) -> List[Problem]:
+    if m_corrupt > 0:
+        problems.append(Problem("invalid_molecule", "Molecule could not be processed."))
+    return problems
+
+
+def cleanAndCheckMolecule(mol) -> Tuple[Optional[Mol], List[Problem]]:
     """
     Performs the structure validation and standardization in one step
     returns RDKit mol or None in case of any failure
     The tauromerization is controlled by global variable
     tautomerize = True
 
-    In case of failure one of the following global counters is increased (to be used in dataset statistics)
-
-    m_corrupt - caused any Python exception
-    m_inorganic - does not contain any Carbon
-    m_tooheavy - Molecular Weight over 1000
-    m_badatoms - contains atoms other than ["C","N","O","S","P","F","Cl","Br","I", "B", "Si", "Se", "H"]
-    m_exotic - radical
-
     Keyword arguments:
     mol -- RDKit mol structure
     """
+    problems = []
+
     # Those are incremented on each call to cleanAndCheckMolecule if any problem occurs
     # could possibly be used to inform the user what was wrong with a given structure, if we want to
     m_corrupt = 0
-    m_inorganic = 0
-    m_tooheavy = 0
-    m_badatoms = 0
-    m_exotic = 0
+
     legal_atoms = ["C", "N", "O", "S", "P", "F", "Cl", "Br", "I", "B", "Si", "Se", "H"]
     if not mol:
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        return None, _append_corrupt_molecule_problem(problems, m_corrupt)
     try:
         Chem.Cleanup(mol)
     except Exception as e:
@@ -146,14 +151,14 @@ def cleanAndCheckMolecule(mol):
         m_corrupt += 1
 
     if not mol:
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        return None, _append_corrupt_molecule_problem(problems, m_corrupt)
     try:
         mol = Chem.RemoveHs(mol)
     except Exception as e:
         m_corrupt += 1
         mol = None
     if not mol:
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        return None, _append_corrupt_molecule_problem(problems, m_corrupt)
 
     wr = True
     fragatoms = 0
@@ -166,21 +171,31 @@ def cleanAndCheckMolecule(mol):
     for atom in molOK.GetAtoms():
         isot = atom.GetIsotope()
         if not (isot == 0):
-            m_exotic += 1
-            return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
-        if not (atom.GetSymbol() in legal_atoms):
-            m_badatoms += 1
-            return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+            problems.append(
+                Problem(
+                    "invalid_molecule",
+                    f"Invalid isotope {isot} for atom {atom.GetSymbol()}",
+                )
+            )
+            return None, _append_corrupt_molecule_problem(problems, m_corrupt)
+        if atom.GetSymbol() not in legal_atoms:
+            problems.append(InvalidElementsProblem([atom.GetSymbol()]))
+            return None, _append_corrupt_molecule_problem(problems, m_corrupt)
     if sum(1 for atom in molOK.GetAtoms() if atom.GetAtomicNum() == 6) == 0:
-        m_inorganic += 1
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        problems.append(
+            Problem("invalid_molecule", "Molecule does not contain any carbon atoms.")
+        )
+        return None, _append_corrupt_molecule_problem(problems, m_corrupt)
 
-    if Descriptors.MolWt(Chem.AddHs(molOK)) > 1000:
-        m_tooheavy += 1
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+    mol_wt = Descriptors.MolWt(Chem.AddHs(molOK))
+    if mol_wt > 1000:
+        problems.append(InvalidWeightProblem(mol_wt, 0, 1000))
+        return None, _append_corrupt_molecule_problem(problems, m_corrupt)
     if Descriptors.NumRadicalElectrons(molOK) > 0:
-        m_exotic += 1
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        problems.append(
+            Problem("invalid_molecule", "Molecule contains radical electrons.")
+        )
+        return None, _append_corrupt_molecule_problem(problems, m_corrupt)
     try:
         molOK = Chem.RemoveHs(molOK)
     except Exception as e:
@@ -188,7 +203,7 @@ def cleanAndCheckMolecule(mol):
         molOK = None
 
     if not molOK:
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        return None, _append_corrupt_molecule_problem(problems, m_corrupt)
 
     try:
         Chem.SanitizeMol(molOK)
@@ -197,7 +212,7 @@ def cleanAndCheckMolecule(mol):
         molOK = None
 
     if not molOK:
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        return None, problems
 
     s = Standardizer()
     molOK = s.standardize(molOK)
@@ -209,7 +224,7 @@ def cleanAndCheckMolecule(mol):
 
     if not molOK:
         m_corrupt += 1
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        return None, problems
 
     try:
         AllChem.Compute2DCoords(molOK)
@@ -218,7 +233,7 @@ def cleanAndCheckMolecule(mol):
         molOK = None
 
     if not molOK:
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        return None, problems
 
     props = molOK.GetPropNames(includePrivate=True, includeComputed=True)
     for prop in props:
@@ -226,41 +241,15 @@ def cleanAndCheckMolecule(mol):
     molOK.SetProp("InChI", Chem.MolToInchi(molOK))
     molOK.SetProp("Smiles", Chem.MolToSmiles(molOK))
     if wr:
-        return molOK, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
+        return molOK, problems
     else:
-        return None, [m_corrupt, m_inorganic, m_tooheavy, m_badatoms, m_exotic]
-
-
-def produce_warnings(w):
-    """
-    Method that adds confidence warnings to the warnings
-
-    :param args: w (hitdexter warnings; list), similarity (similarity to training set)
-    :return: w with appended confidence warnings
-    """
-    ew = ""
-    for i, err in enumerate(w):
-        if err != 0:
-            if i == 1:
-                ew += "corrupt,"
-            if i == 2:
-                ew += "inorganic,"
-            if i == 3:
-                ew += "tooheavy,"
-            if i == 4:
-                ew += "badatoms,"
-            if i == 5:
-                ew += "exotic,"
-        else:
-            ew = "No errors detected "
-
-    return ew[:-1]
+        return None, problems
 
 
 def predict(
     mols,
     enable_ad: bool = True,
-):
+) -> Iterator[dict]:
     # calculate features
 
     # prepare descriptors
@@ -285,20 +274,11 @@ def predict(
     else:
         distances = nnm_predictions
 
-    results = []
-
     for j in range(len(mols)):
-        results.append(
-            {
-                **{
-                    f"prediction_{i+1}": mlm_predictions[i][j]
-                    for i in range(len(labels))
-                },
-                **{f"neighbor_{i+1}": distances[i][j] for i in range(len(labels))},
-            }
-        )
-
-    return results
+        yield {
+            **{f"prediction_{i+1}": mlm_predictions[i][j] for i in range(len(labels))},
+            **{f"neighbor_{i+1}": distances[i][j] for i in range(len(labels))},
+        }
 
 
 class CyplebrityModel(SimpleModel):
@@ -307,12 +287,11 @@ class CyplebrityModel(SimpleModel):
 
     def _preprocess(self, mol: Mol) -> Tuple[Optional[Mol], List[Problem]]:
         with BlockLogs():
-            preprocessed_mol, flags = cleanAndCheckMolecule(mol)
-            warnings = produce_warnings(flags)
+            preprocessed_mol, problems = cleanAndCheckMolecule(mol)
 
-        return preprocessed_mol, [warnings]
+        return preprocessed_mol, problems
 
     def _predict_mols(
         self, mols: List[Mol], applicability_domain: bool = True
-    ) -> List[dict]:
+    ) -> Iterator[dict]:
         return predict(mols, applicability_domain)

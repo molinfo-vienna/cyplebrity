@@ -17,7 +17,7 @@ rdkit_requirement = ["rdkit>=2022.3.3"] if not rdkit_installed else []
 
 setup(
     name="cyplebrity",
-    version="0.3.0",
+    version="0.3.1",
     maintainer="Johannes Kirchmair",
     maintainer_email="johannes.kirchmair@univie.ac.at",
     packages=find_packages(),
@@ -40,10 +40,7 @@ setup(
         "importlib-metadata>=4.6; python_version<'3.10'",
     ],
     extras_require={
-        "dev": [
-            "mypy",
-            "ruff"
-        ],
+        "dev": ["mypy", "ruff"],
         "test": [
             "pytest",
             "pytest-watch",
