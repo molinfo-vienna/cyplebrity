@@ -1,5 +1,5 @@
 import sys
-from typing import List, Optional, Tuple
+from typing import Iterator, List, Optional, Tuple
 
 import numpy as np
 from FPSim2 import FPSim2Engine
@@ -96,9 +96,7 @@ def get_machine_learning_prediction(model, selector, morgans):
     if len(morgans) == 0:
         return []
 
-    return [
-        np.round(i, 2) for i in model.predict_proba(selector.transform(morgans))[:, 1]
-    ]
+    return [np.round(i, 2) for i in model.predict_proba(selector.transform(morgans))[:, 1]]
 
 
 def get_morgan2_fp(mol):
@@ -260,7 +258,7 @@ def produce_warnings(w):
 def predict(
     mols,
     enable_ad: bool = True,
-):
+) -> Iterator[dict]:
     # calculate features
 
     # prepare descriptors
@@ -268,14 +266,11 @@ def predict(
 
     # machine learning models
     mlm_predictions = [
-        get_machine_learning_prediction(mlm[i], selectors[i], morgans)
-        for i in range(len(labels))
+        get_machine_learning_prediction(mlm[i], selectors[i], morgans) for i in range(len(labels))
     ]
 
     # calculate similarities to datasets
-    nnm_predictions = [
-        get_nearest_neighbors_scores(nnmodel, mols, enable_ad) for nnmodel in nnm
-    ]
+    nnm_predictions = [get_nearest_neighbors_scores(nnmodel, mols, enable_ad) for nnmodel in nnm]
 
     distances = []
 
@@ -285,20 +280,11 @@ def predict(
     else:
         distances = nnm_predictions
 
-    results = []
-
     for j in range(len(mols)):
-        results.append(
-            {
-                **{
-                    f"prediction_{i+1}": mlm_predictions[i][j]
-                    for i in range(len(labels))
-                },
-                **{f"neighbor_{i+1}": distances[i][j] for i in range(len(labels))},
-            }
-        )
-
-    return results
+        yield {
+            **{f"prediction_{i+1}": mlm_predictions[i][j] for i in range(len(labels))},
+            **{f"neighbor_{i+1}": distances[i][j] for i in range(len(labels))},
+        }
 
 
 class CyplebrityModel(SimpleModel):
@@ -312,7 +298,5 @@ class CyplebrityModel(SimpleModel):
 
         return preprocessed_mol, [warnings]
 
-    def _predict_mols(
-        self, mols: List[Mol], applicability_domain: bool = True
-    ) -> List[dict]:
+    def _predict_mols(self, mols: List[Mol], applicability_domain: bool = True) -> Iterator[dict]:
         return predict(mols, applicability_domain)
