@@ -2,7 +2,7 @@ module:
   rank: 2
   name: cyplebrity
   visible_name: CYPlebrity
-  logo: !image logo.png
+  logo: !image logo.svg
   logo_title: Cytochrome P450 inhibitors
   logo_caption: Prediction of Cytochrome P450 inhibitors
   example_smiles: O=C(N=C(N)N)c1sc2c(c(C#N)ccc2)c1
