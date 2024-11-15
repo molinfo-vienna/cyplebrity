@@ -52,61 +52,61 @@ module:
 
   result_properties:
     - name: prediction_1
-      verbose_name: Inhibition probability
+      visible_name: Inhibition probability
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP1A2
     - name: neighbor_1
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP1A2
     - name: prediction_2
-      verbose_name: Inhibition probability
+      visible_name: Inhibition probability
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP2C9
     - name: neighbor_2
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP2C9
     - name: prediction_3
-      verbose_name: Inhibition probability
+      visible_name: Inhibition probability
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP2C19
     - name: neighbor_3
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP2C19
     - name: prediction_4
-      verbose_name: Inhibition probability
+      visible_name: Inhibition probability
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP2D6
     - name: neighbor_4
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP2D6
     - name: prediction_5
-      verbose_name: Inhibition probability
+      visible_name: Inhibition probability
       type: float
       palette: positiveToNegative
       sortable: True
       group: CYP3A4
     - name: neighbor_5
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
