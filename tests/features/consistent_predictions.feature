@@ -1,3 +1,4 @@
+@cyplebrity
 Feature: Consistent predictions
 
   Scenario Outline: Predictions stay consistent with previous versions
@@ -9,7 +10,7 @@ Feature: Consistent predictions
     And the subset of the result where the input was not None is considered
     
     Then the value in column 'name' should be equal to '<name>'
-    And the value in column 'raw_input' should be equal to '<input_smiles>'
+    And the value in column 'input_text' should be equal to '<input_smiles>'
     And the value in column 'prediction_1' should be equal to <prediction_1>
     And the value in column 'neighbor_1' should be equal to <neighbor_1>
     And the value in column 'prediction_2' should be equal to <prediction_2>
