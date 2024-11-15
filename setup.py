@@ -45,7 +45,7 @@ setup(
             "pytest",
             "pytest-watch",
             "pytest-cov",
-            "pytest-bdd",
+            "pytest-bdd==7.3.0",
             "hypothesis",
             "hypothesis-rdkit",
         ],
