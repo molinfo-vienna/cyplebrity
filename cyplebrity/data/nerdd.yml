@@ -29,16 +29,23 @@ module:
       logo: !image logo_hamburg.gif
       url: https://www.uni-hamburg.de/
       
-  citation: |
-    Plonka, W.; Stork, C.; Šícho, M.; Kirchmair, J. 
-    CYPlebrity: Machine learning models for the prediction of inhibitors of cytochrome 
-    P450 enzymes<br>
-    Bioorg Med Chem. 2021 Sep 15;46:116388.<br>
-    [doi: 10.1016/j.bmc.2021.116388](https://doi.org/10.1016/j.bmc.2021.116388)
-
-  contact:
-    - name: Johannes Kirchmair
-      email: johannes.kirchmair@univie.ac.at
+  publications:
+    - title: |
+        CYPlebrity: Machine learning models for the prediction of inhibitors of cytochrome 
+        P450 enzymes
+      authors:
+        - first_name: Wojtek
+          last_name: Plonka
+        - first_name: Conrad
+          last_name: Stork
+        - first_name: Martin
+          last_name: Šícho
+        - first_name: Johannes
+          last_name: Kirchmair
+          email: johannes.kirchmair@univie.ac.at
+      journal: Bioorg Med Chem. 2021 Sep 15;46:116388
+      year: 2021
+      doi: 10.1016/j.bmc.2021.116388
 
   about: |
     The documentation will be here soon ...
