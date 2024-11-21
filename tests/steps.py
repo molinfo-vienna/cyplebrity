@@ -12,9 +12,8 @@ def cyplebrity_model():
     parsers.parse("the model generates predictions for the molecule representations"),
     target_fixture="predictions",
 )
-def predictions(representations, predictor, input_type):
+def predictions(representations, predictor):
     return predictor.predict(
         representations,
-        input_type=input_type,
         output_format="record_list",
     )
