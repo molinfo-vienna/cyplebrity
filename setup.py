@@ -31,7 +31,7 @@ setup(
         "scikit_learn==0.23.2",
         "numpy==1.19.2",
         "molvs==0.1.1",
-        "nerdd-module>=0.3.11",
+        "nerdd-module>=0.3.16",
         "fpsim2==0.4.0",
         # avoid warnings about numpy.distutils
         "setuptools < 60.0",
