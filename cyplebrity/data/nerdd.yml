@@ -6,6 +6,7 @@ module:
   logo_title: Cytochrome P450 inhibitors
   logo_caption: Prediction of Cytochrome P450 inhibitors
   example_smiles: O=C(N=C(N)N)c1sc2c(c(C#N)ccc2)c1
+  batch_size: 100
 
   title: Machine learning models for the prediction of inhibitors of cytochrome P450 enzymes
   description: |
@@ -28,7 +29,7 @@ module:
     - name: University of Hamburg
       logo: !image logo_hamburg.gif
       url: https://www.uni-hamburg.de/
-      
+
   publications:
     - title: |
         CYPlebrity: Machine learning models for the prediction of inhibitors of cytochrome 
