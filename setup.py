@@ -1,20 +1,5 @@
 from setuptools import find_packages, setup
 
-# some RDKit versions are not recognized by setuptools
-# -> check if RDKit is installed by attempting to import it
-# -> if RDKit can be imported, do not add it to install_requires
-rdkit_installed = False
-try:
-    import rdkit
-
-    rdkit_installed = True
-except ImportError:
-    pass
-
-# rdkit 2022.3.3 is the oldest (reasonable) version
-rdkit_requirement = ["rdkit>=2022.3.3"] if not rdkit_installed else []
-
-
 setup(
     name="cyplebrity",
     version="0.3.2",
@@ -26,13 +11,13 @@ setup(
     long_description_content_type="text/markdown",
     license="BSD 3-Clause License",
     include_package_data=True,
-    install_requires=rdkit_requirement
-    + [
+    install_requires=[
+        "rdkit==2020.09.1",
         "scikit_learn==0.23.2",
         "numpy==1.19.2",
         "molvs==0.1.1",
         "nerdd-module>=0.3.16",
-        "fpsim2==0.4.0",
+        "fpsim2==0.2.8",
         # avoid warnings about numpy.distutils
         "setuptools < 60.0",
         # install importlib-resources and importlib-metadata for old Python versions
