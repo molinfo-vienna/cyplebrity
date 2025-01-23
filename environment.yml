@@ -7,3 +7,4 @@ dependencies:
   - rdkit=2020.09.1
   - numpy=1.19.2
   - scikit-learn=0.23.2
+  - fpsim2=0.2.8
