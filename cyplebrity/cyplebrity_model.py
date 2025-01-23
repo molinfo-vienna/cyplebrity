@@ -11,9 +11,9 @@ from nerdd_module import (
     Problem,
     SimpleModel,
 )
+from nerdd_module.polyfills import BlockLogs
 from rdkit import Chem
 from rdkit.Chem import AllChem, Descriptors, Mol, MolToSmiles
-from rdkit.rdBase import BlockLogs
 
 if sys.version_info < (3, 9):
     from importlib_resources import files
@@ -276,8 +276,10 @@ def predict(
 
     for j in range(len(mols)):
         yield {
-            **{f"prediction_{i+1}": mlm_predictions[i][j] for i in range(len(labels))},
-            **{f"neighbor_{i+1}": distances[i][j] for i in range(len(labels))},
+            **{
+                f"prediction_{i + 1}": mlm_predictions[i][j] for i in range(len(labels))
+            },
+            **{f"neighbor_{i + 1}": distances[i][j] for i in range(len(labels))},
         }
 
 
