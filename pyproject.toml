@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cyplebrity"
+version = "0.3.2"
+description = ""
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = " Wojtek Plonka" },
+    { name = "Axinya Tokareva" },
+    { name = "Steffen Hirte", email = "steffen.hirte@univie.ac.at" },
+]
+maintainers = [
+    { name = "Johannes Kirchmair", email = "johannes.kirchmair@univie.ac.at" },
+]
+dependencies = [
+    "rdkit==2020.09.1",
+    "scikit_learn==0.23.2",
+    "numpy==1.19.2",
+    "molvs==0.1.1",
+    "nerdd-module>=0.3.16",
+    "fpsim2==0.2.8",
+    "setuptools < 60.0",
+    "importlib-resources>=5; python_version<'3.9'",
+    "importlib-metadata>=4.6; python_version<'3.10'",
+]
+
+[project.optional-dependencies]
+dev = ["mypy", "ruff"]
+test = [
+    "pytest",
+    "pytest-watch",
+    "pytest-cov",
+    "pytest-bdd==7.3.0",
+    "hypothesis",
+    "hypothesis-rdkit",
+]
+
+[project.urls]
+Repository = "https://github.com/molinfo-vienna/cyplebrity"
+
+[project.scripts]
+cyplebrity = "cyplebrity.__main__:main"
