@@ -3,7 +3,7 @@ importlib_metadata==8.6.1
 importlib_resources==6.5.2
 joblib==1.4.2
 MolVS==0.1.1
-nerdd_module==0.3.29
+nerdd_module==0.3.34
 numpy==1.19.2
 pandas==1.4.4
 rdkit==2020.09.1
