@@ -55,65 +55,149 @@ module:
     - name: prediction_1
       visible_name: Inhibition probability
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP1A2
+      color_palette:
+        type: diverging
+        domain:
+          - 0
+          - 0.5
+          - 1
+        range:
+          - positive
+          - neutral
+          - negative
     - name: neighbor_1
       visible_name: Distance to closest training instance
       visible: False
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP1A2
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - positive
+          - neutral
+
     - name: prediction_2
       visible_name: Inhibition probability
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP2C9
+      color_palette:
+        type: diverging
+        domain:
+          - 0
+          - 0.5
+          - 1
+        range:
+          - positive
+          - neutral
+          - negative
     - name: neighbor_2
       visible_name: Distance to closest training instance
       visible: False
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP2C9
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - positive
+          - neutral
+
     - name: prediction_3
       visible_name: Inhibition probability
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP2C19
+      color_palette:
+        type: diverging
+        domain:
+          - 0
+          - 0.5
+          - 1
+        range:
+          - positive
+          - neutral
+          - negative
     - name: neighbor_3
       visible_name: Distance to closest training instance
       visible: False
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP2C19
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - positive
+          - neutral
+
     - name: prediction_4
       visible_name: Inhibition probability
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP2D6
+      color_palette:
+        type: diverging
+        domain:
+          - 0
+          - 0.5
+          - 1
+        range:
+          - positive
+          - neutral
+          - negative
     - name: neighbor_4
       visible_name: Distance to closest training instance
       visible: False
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP2D6
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - positive
+          - neutral
+
     - name: prediction_5
       visible_name: Inhibition probability
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP3A4
+      color_palette:
+        type: diverging
+        domain:
+          - 0
+          - 0.5
+          - 1
+        range:
+          - positive
+          - neutral
+          - negative
     - name: neighbor_5
       visible_name: Distance to closest training instance
       visible: False
       type: float
-      palette: positiveToNegative
       sortable: True
       group: CYP3A4
+      color_palette:
+        type: sequential
+        domain:
+          - 0
+          - 1
+        range:
+          - positive
+          - neutral
