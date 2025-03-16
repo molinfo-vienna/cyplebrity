@@ -43,3 +43,8 @@ Repository = "https://github.com/molinfo-vienna/cyplebrity"
 
 [project.scripts]
 cyplebrity = "cyplebrity.__main__:main"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+addopts = "-x --cov-report=xml --cov-report=term --cov=cyplebrity"
