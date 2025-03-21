@@ -31,7 +31,7 @@ dependencies = [
 dev = ["mypy", "ruff"]
 test = [
     "pytest",
-    "pytest-watch",
+    "pytest-watcher",
     "pytest-cov",
     "pytest-bdd==7.3.0",
     "hypothesis",
@@ -48,3 +48,6 @@ cyplebrity = "cyplebrity.__main__:main"
 log_cli = true
 log_cli_level = "INFO"
 addopts = "-x --cov-report=xml --cov-report=term --cov=cyplebrity"
+
+[tool.pytest-watcher]
+ext = ["py", "feature"]
