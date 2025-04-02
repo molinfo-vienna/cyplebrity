@@ -21,7 +21,7 @@ dependencies = [
     "scikit_learn==0.23.2",
     "numpy==1.19.2",
     "molvs==0.1.1",
-    "nerdd-module>=0.3.16",
+    "nerdd-module>=0.3.34",
     "fpsim2==0.2.8",
     "setuptools < 60.0",
     "importlib-resources>=5; python_version<'3.9'",
