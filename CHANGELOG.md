@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.2 (2025-04-02)
+
+### Fixes
+
+* fix: Add color palettes to result properties ([`8128250`](https://github.com/molinfo-vienna/cyplebrity/commit/8128250fd88b353d10c88df8131b138ca02ca85f))
+
+* fix: Bump version of nerdd-module ([`d39eb56`](https://github.com/molinfo-vienna/cyplebrity/commit/d39eb56b8ab3aae76a79df6d8134e17637f98513))
+
+### Unknown
+
+* Merge pull request #11 from shirte/main
+
+Add color palettes to result properties ([`755e5c5`](https://github.com/molinfo-vienna/cyplebrity/commit/755e5c568eb88c6b43e4e574746d691cfaeeb9e3))
+
+
 ## v0.0.1 (2025-02-26)
 
 ### Chores
