@@ -17,7 +17,7 @@ bash rdkit_installation_fix.sh cyplebrity
 rm rdkit_installation_fix.sh
 
 # install pip dependencies
-pip install -e .
+pip install .
 
 # run cyplebrity
 cyplebrity "O=C(N=C(N)N)c1sc2c(c(C#N)ccc2)c1"

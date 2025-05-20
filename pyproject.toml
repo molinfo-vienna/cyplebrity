@@ -21,9 +21,8 @@ dependencies = [
     "scikit_learn==0.23.2",
     "numpy==1.19.2",
     "molvs==0.1.1",
-    "nerdd-module>=0.3.34",
+    "nerdd-module>=0.3.36",
     "fpsim2==0.2.8",
-    "setuptools < 60.0",
     "importlib-resources>=5; python_version<'3.9'",
     "importlib-metadata>=4.6; python_version<'3.10'",
 ]
@@ -32,7 +31,7 @@ dependencies = [
 dev = ["mypy", "ruff"]
 test = [
     "pytest",
-    "pytest-watch",
+    "pytest-watcher",
     "pytest-cov",
     "pytest-bdd==7.3.0",
     "hypothesis",
@@ -44,3 +43,16 @@ Repository = "https://github.com/molinfo-vienna/cyplebrity"
 
 [project.scripts]
 cyplebrity = "cyplebrity.__main__:main"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+addopts = "-x --cov-report=xml --cov-report=term --cov=cyplebrity"
+
+[tool.pytest-watcher]
+ext = ["py", "feature"]
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+branch = "main"
+upload_to_vcs_release = true
