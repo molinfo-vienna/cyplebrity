@@ -1,6 +1,37 @@
 # CHANGELOG
 
 
+## v0.0.3 (2025-05-20)
+
+### Code Style
+
+* style: Use uppercase for Dockerfile keywords ([`2d2715f`](https://github.com/molinfo-vienna/cyplebrity/commit/2d2715f4c48b2799e60e6e24c17865d83b99766d))
+
+### Documentation
+
+* docs: Remove developer mode flag in installation instructions ([`e8bed97`](https://github.com/molinfo-vienna/cyplebrity/commit/e8bed97aa7575b23777e84c28831397d034eb871))
+
+### Fixes
+
+* fix: Temporarily remove tests on invalid molecules ([`9bcd1c2`](https://github.com/molinfo-vienna/cyplebrity/commit/9bcd1c273459abe25048806ce30d9e315342eb22))
+
+* fix: Add semantic release to pyproject.toml ([`3e57489`](https://github.com/molinfo-vienna/cyplebrity/commit/3e574892178384f17c36be846a4dc1a55f0c2229))
+
+* fix: Use pytest-watcher instead of pytest-watch ([`7c51fab`](https://github.com/molinfo-vienna/cyplebrity/commit/7c51fabb6e4710d678ff5ea10414b3474f6ba053))
+
+* fix: Move pytest.ini to pyproject.toml ([`540ae36`](https://github.com/molinfo-vienna/cyplebrity/commit/540ae367ae7f3dd34427aabe11541ac9aee32310))
+
+* fix: Bump version of dependencies ([`bfa2248`](https://github.com/molinfo-vienna/cyplebrity/commit/bfa2248843d09d0f248d1a1eb2f787ea4c53a23e))
+
+* fix: Update setuptools dependency ([`34b41e3`](https://github.com/molinfo-vienna/cyplebrity/commit/34b41e3a0634e68b7cec65caf60ddcf7c0ef5e55))
+
+### Unknown
+
+* Merge pull request #12 from shirte/main
+
+Update setuptools dependency ([`0e7ce46`](https://github.com/molinfo-vienna/cyplebrity/commit/0e7ce46cf27196e02fa3a375be284dd0e70ecb85))
+
+
 ## v0.0.2 (2025-04-02)
 
 ### Fixes
