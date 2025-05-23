@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.4 (2025-05-23)
+
+### Fixes
+
+* fix: Use distroless base image ([`6c1c1f9`](https://github.com/molinfo-vienna/cyplebrity/commit/6c1c1f95576c8c8150f651cbacc72d49a49a3c17))
+
+* fix: Use cyplebrity as entrypoint of Dockerfile ([`84c1aeb`](https://github.com/molinfo-vienna/cyplebrity/commit/84c1aeb9a237cba0d8cf42614da523ad0fb9772a))
+
+### Unknown
+
+* Merge pull request #13 from shirte/main
+
+Use cyplebrity as entrypoint of Dockerfile ([`ac2a9ae`](https://github.com/molinfo-vienna/cyplebrity/commit/ac2a9aeee702baa824ecb7ad9d0b6a730993b98a))
+
+
 ## v0.0.3 (2025-05-20)
 
 ### Code Style
