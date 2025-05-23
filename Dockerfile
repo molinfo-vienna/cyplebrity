@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.source="https://github.com/molinfo-vienna/cyplebr
 USER root
 
 # keep Docker from buffering the output so we can see the output of the application in real-time
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
@@ -38,18 +38,9 @@ RUN micromamba run -p /env pip install --no-deps .
 #
 # RUN APPLICATION
 #
-# TODO: use different image
-FROM python:3.9-slim
-# FROM gcr.io/distroless/base:nonroot
-
-# TODO: remove
-ENV KAFKA_BROKER_URL=$KAFKA_BROKER_URL
+FROM gcr.io/distroless/base-debian12
 
 # copy the environment from the build stage
 COPY --from=build /env /env
 
-CMD [ \
-    # TODO: remove
-    "/bin/sh", "-c", \
-    "/env/bin/nerdd_prediction_server cyplebrity.CyplebrityModel --broker-url $KAFKA_BROKER_URL --data-dir /data" \
-    ]
+ENTRYPOINT ["/env/bin/cyplebrity"]
