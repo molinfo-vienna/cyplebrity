@@ -18,8 +18,8 @@ maintainers = [
 ]
 dependencies = [
     "rdkit==2022.3.3",
-    "scikit_learn==0.23.2",
-    "numpy==2.0.2",
+    "scikit_learn",
+    "numpy",
     "molvs==0.1.1",
     "nerdd-module>=0.3.36",
     "fpsim2==0.5.1",
