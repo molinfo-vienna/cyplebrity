@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.5 (2025-05-28)
+
+### Fixes
+
+* fix: arm64 compatibility ([`6c1ae1c`](https://github.com/molinfo-vienna/cyplebrity/commit/6c1ae1c7ebaa7f7c86911ab26a1f0b2641b7635f))
+
+### Unknown
+
+* Merge pull request #14 from molinfo-vienna/arm64
+
+fix: arm64 compatibility ([`533f965`](https://github.com/molinfo-vienna/cyplebrity/commit/533f9651bc44ddd76343928258a04c8f6bc731a1))
+
+
 ## v0.0.4 (2025-05-23)
 
 ### Fixes
