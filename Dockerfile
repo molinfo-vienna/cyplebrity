@@ -14,7 +14,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN apt-get update -y && apt-get install wget -qq
+RUN apt-get update -y && apt-get install wget git build-essential -qq
 
 # copy package files first (for caching docker layers)
 COPY environment.yml requirements.txt ./
@@ -30,6 +30,8 @@ RUN micromamba env create --copy -p /env -f environment.yml && \
     wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh && \
     chmod +x rdkit_installation_fix.sh && \
     ./rdkit_installation_fix.sh /env && \
+    # install the fpsim2 version -- not available via classic channels for arm64
+    micromamba run -p /env pip install -e git+https://github.com/chembl/FPSim2.git@0.2.8#egg=fpsim2 && \
     # install the pip dependencies
     micromamba run -p /env pip install -r requirements.txt
 
