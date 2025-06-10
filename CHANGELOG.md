@@ -1,6 +1,27 @@
 # CHANGELOG
 
 
+## v0.0.6 (2025-06-10)
+
+### Fixes
+
+* fix: requirements to be compatible with arm64 build and keeping original versions ([`abbb123`](https://github.com/molinfo-vienna/cyplebrity/commit/abbb12326cc21fcc06a809d6244c2fdd3f827ad4))
+
+* fix: requirements to be compatible with arm64 build and keeping original versions ([`e16f1d1`](https://github.com/molinfo-vienna/cyplebrity/commit/e16f1d19d118f7e4788b00ebb83e0aedb9b8653f))
+
+* fix: requirements to be compatible with arm64 build and keeping original versions ([`89d2a99`](https://github.com/molinfo-vienna/cyplebrity/commit/89d2a993516286aecbf831ba9e4eb950ec1fa08e))
+
+* fix: requirements to be compatible with arm64 build and keeping original versions ([`4688aa8`](https://github.com/molinfo-vienna/cyplebrity/commit/4688aa8cc1537f201cadd3922436ab5ee36958ba))
+
+* fix: requirements to be compatible with arm64 build and keeping original versions ([`a752ce9`](https://github.com/molinfo-vienna/cyplebrity/commit/a752ce97f2068d51e1a06cf96c5d024570001438))
+
+### Unknown
+
+* Merge pull request #16 from molinfo-vienna/arm64-fixedversions
+
+fix: requirements to be compatible with arm64 build and keeping origi… ([`12bafab`](https://github.com/molinfo-vienna/cyplebrity/commit/12bafab170e1d4386e3a640f48a2efcc21dfc238))
+
+
 ## v0.0.5 (2025-05-28)
 
 ### Fixes
