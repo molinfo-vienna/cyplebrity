@@ -23,8 +23,9 @@ jobs:
           powershell
         cache-environment: true
         post-cleanup: 'all'
-    - name: Fix RDKit
+    - name: Install and Fix RDKit
       run: |
+        pip install $(grep rdkit requirements.txt)
         wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh
         chmod +x rdkit_installation_fix.sh
         ./rdkit_installation_fix.sh cyplebrity
