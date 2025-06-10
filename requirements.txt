@@ -8,3 +8,6 @@ pandas==1.4.4
 rdkit==2020.09.1
 nerdd-module==0.3.36
 nerdd-link==0.2.23
+pytables>=3.4.4
+scipy
+tqdm
