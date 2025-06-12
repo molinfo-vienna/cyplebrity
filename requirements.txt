@@ -1,3 +1,4 @@
+FPSim2@git+https://github.com/chembl/FPSim2.git@0.2.8
 importlib_metadata==8.7.0
 importlib_resources==6.5.2
 joblib==1.5.0
