@@ -1,9 +1,28 @@
 # CHANGELOG
 
 
+## v0.0.7 (2025-06-12)
+
+### Unknown
+
+* Merge pull request #17 from molinfo-vienna/arm64-fixedversions
+
+fix: pruning deps even if it makes requirements unclear. Adding fpsim2 to pyproject.toml with new pep syntax ([`22c2b9f`](https://github.com/molinfo-vienna/cyplebrity/commit/22c2b9f8d31773e62c03a888c97751eda486ddff))
+
+* Merge branch 'main' into arm64-fixedversions ([`7fa52c2`](https://github.com/molinfo-vienna/cyplebrity/commit/7fa52c2b13fcbe2042f415b8abcba5cd7f24ba16))
+
+
 ## v0.0.6 (2025-06-10)
 
 ### Fixes
+
+* fix: requirements to have fpsim2 also in the txt ([`0147cac`](https://github.com/molinfo-vienna/cyplebrity/commit/0147cac5a87f56f5402a906a5d53e5840cb9b747))
+
+* fix: requirements to keep versions of numpy and scikitlearn ([`dc97afe`](https://github.com/molinfo-vienna/cyplebrity/commit/dc97afe31d74e0a999003172868d0b39d0dc1b4d))
+
+* fix: pruning deps even if it makes requirements unclear. Adding fpsim2 to pyproject.toml with new pep syntax ([`d26da1f`](https://github.com/molinfo-vienna/cyplebrity/commit/d26da1f92ff97f1f8d30aa2e8b0bfa1abc84774e))
+
+* fix: pruning deps even if it makes requirements unclear. Adding fpsim2 to pyproject.toml with new pep syntax ([`603f828`](https://github.com/molinfo-vienna/cyplebrity/commit/603f828ca6d409fde9e486821c4fd714fba95b95))
 
 * fix: requirements to be compatible with arm64 build and keeping original versions ([`abbb123`](https://github.com/molinfo-vienna/cyplebrity/commit/abbb12326cc21fcc06a809d6244c2fdd3f827ad4))
 
