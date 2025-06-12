@@ -18,6 +18,8 @@ maintainers = [
 ]
 dependencies = [
     "molvs==0.1.1",
+    "scikit_learn==0.23.2",
+    "numpy==1.19.2",
     "nerdd-module>=0.3.36",
     "fpsim2 @ git+https://github.com/chembl/FPSim2.git@0.2.8",
     "importlib-resources>=5; python_version<'3.9'",
