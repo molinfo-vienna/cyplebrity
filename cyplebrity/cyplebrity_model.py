@@ -5,12 +5,7 @@ import numpy as np
 from FPSim2 import FPSim2Engine
 from joblib import load
 from molvs import Standardizer, tautomer
-from nerdd_module import (
-    InvalidElementsProblem,
-    InvalidWeightProblem,
-    Problem,
-    SimpleModel,
-)
+from nerdd_module import InvalidElementsProblem, InvalidWeightProblem, Model, Problem
 from nerdd_module.polyfills import BlockLogs
 from rdkit import Chem
 from rdkit.Chem import AllChem, Descriptors, Mol, MolToSmiles
@@ -283,7 +278,7 @@ def predict(
         }
 
 
-class CyplebrityModel(SimpleModel):
+class CyplebrityModel(Model):
     def __init__(self):
         super().__init__(preprocessing_steps=[])
 
