@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.8 (2025-06-29)
+
+### Fixes
+
+* fix: Bump dependency versions ([`ea44527`](https://github.com/molinfo-vienna/cyplebrity/commit/ea44527974264bc00378d731273d49477b7acfb1))
+
+### Unknown
+
+* Merge pull request #18 from shirte/main
+
+fix: Bump dependency versions ([`097752f`](https://github.com/molinfo-vienna/cyplebrity/commit/097752f123add2e7e977d161e01d07241e44b886))
+
+
 ## v0.0.7 (2025-06-12)
 
 ### Unknown
