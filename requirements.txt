@@ -4,5 +4,5 @@ importlib_resources==6.5.2
 joblib==1.5.0
 MolVS==0.1.1
 pandas==1.4.4
-nerdd-module==0.3.36
-nerdd-link==0.2.23
+nerdd-module==0.3.37
+nerdd-link==0.4.1
