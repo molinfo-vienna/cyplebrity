@@ -12,9 +12,7 @@ conda env create -f environment.yml
 conda activate cyplebrity
 
 # apply fix for old rdkit versions
-wget https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh
-bash rdkit_installation_fix.sh cyplebrity
-rm rdkit_installation_fix.sh
+curl -sS https://gist.githubusercontent.com/shirte/e1734e51dbc72984b2d918a71b68c25b/raw/ae4afece11980f5d7da9e7668a651abe349c357a/rdkit_installation_fix.sh | bash -s cyplebrity
 
 # install pip dependencies
 pip install .
