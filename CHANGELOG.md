@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.9 (2025-07-28)
+
+### Fixes
+
+* fix: Derive from Model class ([`6215840`](https://github.com/molinfo-vienna/cyplebrity/commit/6215840f2ac682b18491feea7930f5f9fb3fab94))
+
+* fix: Bump dependencies ([`97f3609`](https://github.com/molinfo-vienna/cyplebrity/commit/97f360988f45ec140c98c39bdc04174df6c14f99))
+
+### Unknown
+
+* Merge pull request #19 from shirte/main
+
+Adapt to nerdd-module 0.3.39 ([`3cf32c9`](https://github.com/molinfo-vienna/cyplebrity/commit/3cf32c92433f0f072cb9072c8563c49a1057277c))
+
+
 ## v0.0.8 (2025-06-29)
 
 ### Fixes
