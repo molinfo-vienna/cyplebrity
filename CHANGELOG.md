@@ -1,6 +1,23 @@
 # CHANGELOG
 
 
+## v0.0.10 (2025-09-01)
+
+### Documentation
+
+* docs: Use curl and pipes for rdkit_installation fix ([`dc13ceb`](https://github.com/molinfo-vienna/cyplebrity/commit/dc13ceb3c19265d718458dcbc0d6945cc66f8871))
+
+### Fixes
+
+* fix: Use curl in docker image ([`9aaa488`](https://github.com/molinfo-vienna/cyplebrity/commit/9aaa48822ffd0e7f19332de3bed60ddd8efd5f96))
+
+### Unknown
+
+* Merge pull request #20 from shirte/main
+
+Use curl for rdkit installation fix ([`a618528`](https://github.com/molinfo-vienna/cyplebrity/commit/a618528b8c1c4f7d10b92e343cfdd25020e34d85))
+
+
 ## v0.0.9 (2025-07-28)
 
 ### Fixes
