@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.15 (2026-07-31)
+
+### Fixes
+
+* fix: Update nerdd dependencies ([`e2a00f8`](https://github.com/molinfo-vienna/cyplebrity/commit/e2a00f84db47621c9438e02e432acd9a462d54ff))
+
+* fix: Update dependencies nerdd-link and nerdd-module ([`11656a8`](https://github.com/molinfo-vienna/cyplebrity/commit/11656a830fa4e6e5431fa8df0c1a8580070ab43a))
+
+### Unknown
+
+* Merge pull request #25 from shirte/main
+
+Update dependencies nerdd-link and nerdd-module ([`0ff5127`](https://github.com/molinfo-vienna/cyplebrity/commit/0ff5127375ab990fcfa9a411a96c816a6bf0836b))
+
+
 ## v0.0.14 (2026-01-28)
 
 ### Fixes
